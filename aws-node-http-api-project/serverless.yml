@@ -1,0 +1,22 @@
+service: aws-node-http-api-project
+frameworkVersion: '3'
+
+provider:
+  name: aws
+  runtime: nodejs16.x
+  timeout: 900
+  memorySize: 2000
+  stackTags:
+    product: api-gateway-test
+    env: dev
+    create-date: 2022-09-13
+    team: data
+    customer-impact: false
+
+functions:
+  hello:
+    handler: src/handler.hello
+    events:
+      - httpApi:
+          path: /
+          method: get

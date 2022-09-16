@@ -1,0 +1,53 @@
+service: serverlessSetup
+provider:
+  name: aws
+  runtime: nodejs16.x
+  region: us-east-1
+# functions
+functions:
+  hello:
+    handler: src/functions/hello.handler
+    events: # The events that trigger this function
+      - http:
+          path: serverlessSetup/hello
+          method: get
+  goodbye:
+    handler: src/functions/goodbye.handler
+    events:
+      - http:
+          path: serverlessSetup/goodbye
+          method: post
+  employeeGet:
+    handler: src/functions/employee/getAll.handler
+    events: # The events that trigger this function
+      - http:
+          path: serverlessSetup/employee
+          method: get
+  employeeGetById:
+    handler: src/functions/employee/getById.handler
+    events: # The events that trigger this function
+      - http:
+          path: serverlessSetup/employee/{id}
+          method: get
+  employeeAdd:
+    handler: src/functions/employee/addOne.handler
+    events: # The events that trigger this function
+      - http:
+          path: serverlessSetup/employee
+          method: put
+  employeeUpdate:
+    handler: src/functions/employee/updateOne.handler
+    events: # The events that trigger this function
+      - http:
+          path: serverlessSetup/employee/{id}
+          method: post
+  employeeRemove:
+    handler: src/functions/employee/removeById.handler
+    events: # The events that trigger this function
+      - http:
+          path: serverlessSetup/employee/{id}
+          method: delete
+# Serverless plugins
+plugins:
+  - serverless-plugin-typescript
+  - serverless-offline
